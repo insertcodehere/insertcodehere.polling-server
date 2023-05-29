@@ -1,0 +1,5 @@
+# Environment
+node_modules
+
+# Artifacts
+polls.db
