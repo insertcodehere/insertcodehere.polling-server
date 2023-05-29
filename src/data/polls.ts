@@ -3,7 +3,9 @@ type Poll = any;
 function getAll(db: any): Promise<Poll[]> {
   return new Promise(resolve => {
     db.all("SELECT * FROM poll;", (err: any, rows: any) => {
-      const polls = rows.map((row: any) => ({
+      const normalizedRows = rows ?? [];
+
+      const polls = normalizedRows.map((row: any) => ({
         ...row,
         id: row.id.toString(),
         options: JSON.parse(row.options)
@@ -15,8 +17,10 @@ function getAll(db: any): Promise<Poll[]> {
 
 function getAllByUser(db: any, userId: string): Promise<Poll[]> {
   return new Promise(resolve => {
-    db.all(`SELECT * FROM poll WHERE createdBy = '${userId}';`, (err: any, rows: any) => {
-      const polls = rows.map((row: any) => ({
+    db.all(`SELECT * FROM poll WHERE createdBy = ${+userId};`, (err: any, rows: any) => {
+      const normalizedRows = rows ?? [];
+
+      const polls = normalizedRows.map((row: any) => ({
         ...row,
         id: row.id.toString(),
         options: JSON.parse(row.options)

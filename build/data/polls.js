@@ -13,15 +13,17 @@ exports.polls = void 0;
 function getAll(db) {
     return new Promise(resolve => {
         db.all("SELECT * FROM poll;", (err, rows) => {
-            const polls = rows.map((row) => (Object.assign(Object.assign({}, row), { id: row.id.toString(), options: JSON.parse(row.options) })));
+            const normalizedRows = rows !== null && rows !== void 0 ? rows : [];
+            const polls = normalizedRows.map((row) => (Object.assign(Object.assign({}, row), { id: row.id.toString(), options: JSON.parse(row.options) })));
             resolve(polls);
         });
     });
 }
 function getAllByUser(db, userId) {
     return new Promise(resolve => {
-        db.all(`SELECT * FROM poll WHERE createdBy = '${userId}';`, (err, rows) => {
-            const polls = rows.map((row) => (Object.assign(Object.assign({}, row), { id: row.id.toString(), options: JSON.parse(row.options) })));
+        db.all(`SELECT * FROM poll WHERE createdBy = ${+userId};`, (err, rows) => {
+            const normalizedRows = rows !== null && rows !== void 0 ? rows : [];
+            const polls = normalizedRows.map((row) => (Object.assign(Object.assign({}, row), { id: row.id.toString(), options: JSON.parse(row.options) })));
             resolve(polls);
         });
     });
