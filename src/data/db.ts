@@ -1,11 +1,10 @@
-import { constants } from 'fs';
 import fs from 'fs/promises';
 
 import sqlite from 'sqlite3';
 import { POLLS, USERS } from './db-seed';
 
 
-const dbFile = './dist/data/polls.db';
+const dbFile = './build/data/polls.db';
 const polls = POLLS;
 const users = USERS;
 

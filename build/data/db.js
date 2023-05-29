@@ -7,7 +7,7 @@ exports.connect = void 0;
 const promises_1 = __importDefault(require("fs/promises"));
 const sqlite3_1 = __importDefault(require("sqlite3"));
 const db_seed_1 = require("./db-seed");
-const dbFile = __dirname + './polls.db';
+const dbFile = './build/data/polls.db';
 const polls = db_seed_1.POLLS;
 const users = db_seed_1.USERS;
 sqlite3_1.default.verbose();
